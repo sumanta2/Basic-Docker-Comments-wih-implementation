@@ -1,0 +1,83 @@
+here i document some basic comment with implementation here my goal is to later i use this docker project/document as a reference when i want to use docker in my any project
+
+
+------------------------------------run in cmd-------------------------------------
+
+1. docker pull redis ----------	download redis docker image container in my system docker  
+
+2. docker images -------------- display all the image container present in my system docker
+
+3. docker run redis  ---------- run redis image container so that we can use redis in our project
+
+4. docker ps 	--------------- display all the image container are running in my system
+
+5. docker stop <containerId> --	stop a docker/image container which already running here container id we get by running docker ps command
+
+6. docker run -d redis	------- run redis docker container here -d indicate it run this and return the only container id then we can do any work in cmd
+
+7. docker ps -a    ------------ it display all the container which are running or run previously run but now not running
+
+8. docker start <containerId> - if any container run previously but now stop by that command using thats container's id restart this container
+
+9. docker run redis:4.0	-------	it run the redis version 4.0 if not present first pull then run
+
+
+I want to use two different version like redis here if we run two redis container with two different version in this case they reserve same port in the docker container but in my machine i have only on port of that number in this case we need to provide binding to that container to my system port using that command
+
+10. docker run -p6000:6079 redis ------- here run redis container 6079 bind with machine 6000 prot !here we use only "redis" means only "redis" without version
+
+11. docker run -d -p6000:6794 redis  -----------------    is a sample docker comment
+
+
+12. docker log <containerId/ containerName> ----------------  it display all log data of the docker 
+
+13. docker run -d -p6001:6379 --name redis-older redis:4.0   create a docker container with custom name <here redis-older> 
+
+14. docker exec -it <containerId/ containerName> /bin/bash ---------------- it run the docker and mode cmd path to "/bin/bash"
+
+15. docker network ls ----------- it display the all docker network present in my system vdo 1:16:08
+What is docker network explained in this video's that portion:1:10:08
+
+16. docker network create mongo-network -------- create a new Docker network<name is mongo-network>
+
+17. docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongo --net mongo-network mongo
+this command starts a new container based on the MongoDB image, maps port 27017 to the host machine, sets the username and password for the root user, and places the container in a network environment named mongo-network.
+
+18. docker run --net mongo-network -d -e ME_CONFIG_BASICAUTH_USERNAME=admin -e ME_CONFIG_BASICAUTH_PASSWORD=password -p 8081:8081 --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongo mongo-express vdo:01:16:57<Not Work Provide error>
+here mongo-express image-container work like mongodbCompass by this i access docker-mongodb database data but in my case mongo-express image-container can not work properly so i used mongodb-compass to access docker-mongodb database data graphically
+
+this command runs a containerized instance of the Mongo Express web interface, which can be used to interact with a MongoDB database running in another container in the same Docker network.
+
+
+19. docker-compose -f mongo.yaml up -d  --------  It run(up indicate for fun) the mongo.yaml file with detached mode in mongo.yaml file we write the command(something like 17 and 18 no command) in which configuration the container will be created in a particular network how we write the command in mongo.yaml file explain in Docker Compose Folder here up indicate that start that containers 
+  using docker-compose command when we create the containers which will be newly created so first time its database does not contain anything
+  here docker-compose command will created a network for all the containers which mentioned in .yaml file 
+
+20. docker-compose -f mongo.yaml down ----------- all the container and network will be created by using 19 th command if i want to stop and delete this container use this command
+
+21. docker build -t my-app:1.0 .      -------  here build  function create owr project own image my-app is the name of the image and 1.0 is the version of that dockerImage The dot "." at the end of the command denotes location of the Dockerfile.  
+
+
+22. docker run -p 8080:8080 my-app:1.0 after running build command(21 no command) which image is created create the container and run this container we run this command here my-app:1.0 is container name with version 1.0
+
+
+23. docker exec -it 0d1df425068b /bin/sh  ------ it open the file system of the docker container use exit to exit from docker container file system
+
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Helping Video:  https://youtu.be/3c-iBn73dDE vdo complete:2:04:33
+
+
